@@ -1,16 +1,24 @@
 import quizlet
+from flask import Flask
+
+app = Flask(__name__)
+
 
 knowledge_base = {}
 
-running = True
-while running:
-	question = input("Question? ")
-	if question in ["exit", "no", "quit"]:
-		running = False
+@app.route('/ask/<question>')
+def root(question):
+	quizlet.ask_question(question, knowledge_base)
+	found_answer = [key for key in knowledge_base if quizlet.minify(question) in key]
+	if found_answer:
+		return knowledge_base[found_answer[0]]
 	else:
-		quizlet.ask_question(question, knowledge_base)
-		found_answer = [key for key in knowledge_base if quizlet.minify(question) in key]
-		if found_answer:
-			print(knowledge_base[found_answer[0]])
-		else:
-			print(knowledge_base)
+		return knowledge_base
+
+@app.errorhandler(404)
+def not_found(e):
+	print(e)
+	return "oof"
+
+if __name__ == '__main__':
+	app.run(port=8005)
