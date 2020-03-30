@@ -1,6 +1,6 @@
 import quizlet
 
-
+knowledge_base = {}
 
 running = True
 while running:
@@ -8,9 +8,9 @@ while running:
 	if question in ["exit", "no", "quit"]:
 		running = False
 	else:
-		quizlet.ask_question(question)
-		found_answer = [key for key in quizlet.knowledge_base if quizlet.minify(question) in key]
+		quizlet.ask_question(question, knowledge_base)
+		found_answer = [key for key in knowledge_base if quizlet.minify(question) in key]
 		if found_answer:
-			print(quizlet.knowledge_base[found_answer[0]])
+			print(knowledge_base[found_answer[0]])
 		else:
-			print(quizlet.knowledge_base)
+			print(knowledge_base)
