@@ -11,6 +11,8 @@ pylint = "*"
 requests = "*"
 bs4 = "*"
 flask = "*"
+apscheduler = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.8"
