@@ -13,26 +13,22 @@
 body {
 	font-family: SFNewRepublic;
 	color: white;
-	font-size: 2em;
+	font-size: 1.8em;
+	background: url('https://images.pexels.com/photos/247676/pexels-photo-247676.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
+	background-position: center;
+	background-size: cover;
 }
 
 
 main {
-	background: url('https://images.pexels.com/photos/247676/pexels-photo-247676.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
-	background-position: center;
-	background-size: cover;
 	width: 100vw;
-	height: 100vh;
+	height: 97vh;
 	overflow: auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-}
-
-#title {
-	/* font-size: 2em; */
 }
 
 #title h1 {
@@ -83,6 +79,7 @@ form {
 	font-family: Arial, Helvetica, sans-serif;
 	width: 70%;
 	height: 40vh;
+	padding: 0.5em;
 }
 
 #kb-display {
@@ -99,7 +96,7 @@ form {
 	background: black;
 	opacity: 0.8;
 	color: white;
-	font-size: 0.3em;
+	font-size: 0.4em;
 }
 
 #kb-display .found-question {
@@ -108,11 +105,45 @@ form {
 	padding: 0.25em;
 	justify-content: space-between;
 }
-
+.error {
+	color: red;
+	font-size: 0.75em;
+}
 #kb-display .found-question * {
 	flex-basis: 50%;
 }
-
+a {
+	color: white;
+}
+#credit {
+	background: black;
+	color: white;
+	float: right;
+	padding: 0.2em;
+	font-size: 0.4em;
+}
+@media(max-width: 767px) {
+	#title h1 {
+		padding-bottom: 0.25em;
+	}
+	form {
+		width: 90%;
+	}
+	#txtQuery {
+		width: 100%;
+	}
+	#results {
+		width: 90%;
+		padding: 0.25em;
+	}
+	#btnQuery {
+		display: block;
+		margin: 0.25em auto;
+	}
+	#kb-display .found-question {
+		flex-direction: column;
+	}
+}
 @keyframes rotate {
 	to {
 		transform: rotate(360deg);

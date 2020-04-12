@@ -15,10 +15,14 @@ async function query(text) {
 	let url = `${base_url}/ask/${text}/${kb_token}`;
 
 	let res = await (fetch(url).catch(err => {
-		elResults.innerHTML = 'Oopsie! An error occoured<br/>' + err;
+		const elError = document.createElement('p');
+		elError.classList.add('clearable', 'error');
+		elError.textContent = 'Oopsie! An error occoured' + err;
+		elResults.appendChild(elError);
 		animLoader.classList.add('inactive');
 		return;
 	}));
+	animLoader.classList.add('inactive')
 	if (res.ok) {
 		const results = await res.json();
 		kb_token = results.kb_token;
@@ -33,7 +37,7 @@ async function query(text) {
 		}
 	}
 	// txtQuery.value = '';
-	animLoader.classList.add('inactive')
+	
 }
 function display(results) {
 	const answerInfo = results.result;
@@ -52,6 +56,7 @@ function display(results) {
 			const elQuestion = document.createElement('p');
 			elQuestion.classList.add('found-question');
 			const elQuestionLink = document.createElement('a');
+			elQuestionLink.classList.add('question-link');
 			elQuestionLink.textContent = question.question;
 			elQuestionLink.href = 'https://quizlet.com/' + question.url_id;
 			elQuestionLink.target = 'blank'
@@ -73,6 +78,7 @@ function display(results) {
 			const elQuestion = document.createElement('p');
 			elQuestion.classList.add('question');
 			const elQuestionLink = document.createElement('a');
+			elQuestionLink.classList.add('question-link');
 			elQuestionLink.href = 'https://quizlet.com/' + answerInfo[question].url_id;
 			elQuestionLink.target = 'blank';
 			elQuestionLink.textContent = question;

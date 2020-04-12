@@ -12,7 +12,7 @@
 	<main>
 		<div id="title">
 			<h1>Quizlet Query</h1>
-			<h2 id="sub">Ask Quizlet anything</h2>
+			<h3 id="sub">Ask Quizlet anything</h3>
 		</div>
 		<form id="frmQuery">
 			<input type="text" id="txtQuery" placeholder="Type your question here...">
@@ -27,8 +27,8 @@
 				
 			</div>
 			<div id="kb-display" class="result inactive">
-				<p>
-					I couldn't find any suitible answers to this question, however, these answers may be relevant or based on previous questions.
+				<p class="error">
+					Server found no suitable answers to this question, however, these answers may be relevant or based on previous questions.
 				</p>
 				<input type="text" id="filter" placeholder="Type to filter">
 				<div class="clearable" id="found-questions">
@@ -36,6 +36,9 @@
 			</div>
 		</div>
 	</main>
+	<div id="credit">
+		Built by <a href="https://sethpainter.com">Seth Painter.</a> See it on <a href="https://github.com/TheFoxarmy/QuizletQuery">GitHub</a>
+	</div>
 	<script src="app.js"></script>
 </body>
 
