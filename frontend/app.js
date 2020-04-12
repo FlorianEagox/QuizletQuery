@@ -53,13 +53,13 @@ function display(results) {
 			elQuestion.classList.add('found-question');
 			const elQuestionLink = document.createElement('a');
 			elQuestionLink.textContent = question.question;
-			elQuestionLink.href = 'https://quizlet.com/' + question.answer.url;
+			elQuestionLink.href = 'https://quizlet.com/' + question.url_id;
 			elQuestionLink.target = 'blank'
 			elQuestion.appendChild(elQuestionLink);
 			elQuestionContainer.appendChild(elQuestion);
 			const elAnswer = document.createElement('p');
 			elAnswer.classList.add('found-answer');
-			elAnswer.textContent = question.answer.answer;
+			elAnswer.textContent = question.answer;
 			elQuestionContainer.appendChild(elQuestion);
 			elQuestionContainer.appendChild(elAnswer);
 			first.appendChild(elQuestionContainer);
@@ -67,14 +67,13 @@ function display(results) {
 	} else {
 		const elKbDisplay = document.querySelector('#kb-display');
 		elKbDisplay.classList.remove('inactive');
-		console.log(answerInfo)
 		Object.keys(answerInfo).forEach(question => {
 			const foundQuestion = document.createElement('div');
 			foundQuestion.classList.add('found-question');
 			const elQuestion = document.createElement('p');
 			elQuestion.classList.add('question');
 			const elQuestionLink = document.createElement('a');
-			elQuestionLink.href = 'https://quizlet.com/' + answerInfo[question].url;
+			elQuestionLink.href = 'https://quizlet.com/' + answerInfo[question].url_id;
 			elQuestionLink.target = 'blank';
 			elQuestionLink.textContent = question;
 			elQuestion.appendChild(elQuestionLink);

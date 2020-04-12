@@ -17,14 +17,14 @@ def find_answer_from_quizlet(url, knowledge_base):
 	page = BeautifulSoup(requests.get(
 		url, headers=headers).content, 'html.parser')
 	for el in [el.select('*') for el in page.select('.SetPageTerm-content')]:
-		knowledge_base[el[0].get_text()] = {'answer': el[-1].get_text(), 'url': url.split('/')[3]}
+		knowledge_base[el[0].get_text()] = {'answer': el[-1].get_text(), 'url_id': [part for part in url.split('/') if part.isdigit()][0]}
 
 
 def get_search_results(question):
 	querystring = {'cx': cse_cx, 'key': cse_key, 'q': question}
 	results = json.loads(requests.request(
 		'GET', cse_request_url, params=querystring).text)
-	print(results)
+	# print(results)
 	return [item['link'] for item in results['items']]
 
 
@@ -41,5 +41,5 @@ def ask_question(question, knowledge_base={}):
 		if not found_answers:
 			find_answer_from_quizlet(url, knowledge_base)
 	if found_answers:
-		return [{'question': found_question, 'answer': knowledge_base[found_question]} for found_question in found_answers]
+		return [{'question': found_question, **knowledge_base[found_question]} for found_question in found_answers]
 	return found_answers

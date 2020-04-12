@@ -61,7 +61,7 @@ def ask(question=None, kb_token=None):
 	result = None
 	status = 'not_found'
 	if found_answer == -1:
-		return "There was an error Googling your question, perhaps the maximum daily limit of 100 requests has been reached =(", 400
+		return "There was an error Googling your question, perhaps the maximum daily limit of 100 requests has been reached =(", 501
 	if found_answer:
 		result = found_answer
 		status = 'found'
@@ -92,8 +92,7 @@ def root():
 
 @app.errorhandler(404)
 def not_found(e):
-	print(e)
-	return "oof"
+	return "oof, " + str(e)
 
 
 if __name__ == '__main__':
