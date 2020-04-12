@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quizlet Query</title>
+	<link rel="stylesheet" href="main.css"/>
+</head>
+
+<body>
+	<main>
+		<div id="title">
+			<h1>Quizlet Query</h1>
+			<h2 id="sub">Ask Quizlet anything</h2>
+		</div>
+		<form id="frmQuery">
+			<input type="text" id="txtQuery" placeholder="Type your question here...">
+			<input id="btnQuery" type="submit" value="Search" />
+		</form>
+		<div id="loader" class="inactive">
+			<div class="circle"></div>
+		</div>
+		<div id="results">
+			<!-- Ideal result, one answer -->
+			<div id="first" class="result inactive clearable">
+				
+			</div>
+			<div id="kb-display" class="result inactive">
+				<p>
+					I couldn't find any suitible answers to this question, however, these answers may be relevant or based on previous questions.
+				</p>
+				<input type="text" id="filter" placeholder="Type to filter">
+				<div class="clearable" id="found-questions">
+				</div>
+			</div>
+		</div>
+	</main>
+	<script src="app.js"></script>
+</body>
+
+</html>
