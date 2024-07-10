@@ -24,24 +24,12 @@ def find_answer_from_quizlet(url, knowledge_base):
         
         if response.status_code == 200:
             page = BeautifulSoup(response.content, 'html.parser')
-            # for el in [el.select('*') for el in page.select('.SetPageTerms-term')]:
-            #     knowledge_base[el[0].get_text()] = {'answer': el[-1].get_text(), 'url_id': [part for part in url.split('/') if part.isdigit()][0]}
             terms = []
             for e in page.select('.SetPageTerms-term'):
-                try:
-                    left = re.sub('<[^>]*>', '', str(e.select('.TermText')[0].decode_contents()))
-                except:
-                    left = "error"
-                
-                try:
-                    right = re.sub('<[^>]*>', '', str(e.select('.TermText')[1].decode_contents()))
-                except:
-                    right = "error"
-                
+                term_pair = e.select('.TermText')
+                left = re.sub('<[^>]*>', '', str(term_pair[0].decode_contents())) if len(term_pair) > 0 else "error"
+                right = re.sub('<[^>]*>', '', str(term_pair[1].decode_contents())) if len(term_pair) > 1 else "error"
                 terms.append((left, right))
-
-            # for (i, j) in terms:
-            #     print(i, j)
         
             return terms
 
@@ -49,7 +37,6 @@ def get_search_results(question):
     querystring = {'cx': cse_cx, 'key': cse_key, 'q': question}
     results = json.loads(requests.request(
         'GET', cse_request_url, params=querystring).text)
-    # print(results)
     return [item['link'] for item in results['items']]
 
 
@@ -69,7 +56,7 @@ def ask_question(question, knowledge_base={}):
             print("FINDING ANSWERS FROM " + url)
             if term:= find_answer_from_quizlet(url, knowledge_base):
                 terms += term
-    # print(terms)
+
     choices = []
     for (left, right) in terms:
         left_ratio  = fuzz.ratio(question, left)
@@ -86,23 +73,9 @@ def ask_question(question, knowledge_base={}):
     ranked_choices = sorted(choices, key=lambda x: x[0], reverse=True)
     print(question)
     print("----------------------\nbest choices:")
-    for (ratio, term) in ranked_choices:
+    for (ratio, term) in ranked_choices[:6]:
         print(f"- {ratio:>4} | {term}")
 
 question = "michaelangelos laurentian library is part of the complex that includes"
 ask_question(question)
-
-# with open("testing.html") as f:
-#     soup = BeautifulSoup(f, 'html.parser')
-
-#     terms = []
-#     for e in soup.select('.SetPageTerms-term'):
-#         left = re.sub('<[^>]*>', '', str(e.select('.TermText')[0].encode_contents()))
-#         right = re.sub('<[^>]*>', '', str(e.select('.TermText')[1].encode_contents()))
-#         terms.append((left, right))
-
-#     for (i, j) in terms:
-#         print(i, j)
-
-        
-    
+       
